@@ -1,52 +1,78 @@
-my-next-app/
-  ├─ src/
-  │   ├─ app/
-  │   │   ├─ layout.tsx          // Layout raiz (envolve toda a aplicação)
-  │   │   ├─ page.tsx            // Página inicial (pode ser a listagem geral)
-  │   │   ├─ users/
-  │   │   │   ├─ page.tsx        // Listagem de usuários
-  │   │   │   ├─ create/
-  │   │   │   │   └─ page.tsx    // Tela de cadastro de usuário
-  │   │   │   └─ [id]/
-  │   │   │       └─ page.tsx    // Tela de edição de usuário
-  ├─ src/
-  │   ├─ components/
-  │   │   └─ UserForm.tsx        // Formulário de cadastro/edição
-  │   ├─ hooks/
-  │   │   └─ useUsers.ts         // Hook para listar usuários (React Query)
-  │   ├─ services/
-  │   │   └─ api.ts              // Configuração do axios
-  ├─ package.json
-  └─ ...
-Home Page:
-Ao acessar a aplicação, o usuário chega na página inicial (por exemplo, a página de boas-vindas exibida em src/app/page.tsx). Aqui podemos ter uma mensagem simples como “Bem-vindo à Home!” que introduz brevemente o sistema.
+#  Service User RH - Frontend
 
-Listagem de Usuários:
-A partir da Home, o usuário pode acessar a listagem de usuários. Essa rota é definida em src/app/users/page.tsx.
+##  Sobre o Projeto
 
-O que o usuário vê: Uma lista de usuários cadastrados, com cada item exibindo informações básicas (nome, e-mail, etc.).
-Navegação:
-Um link ou botão (por exemplo, “Cadastrar Novo Usuário”) que o direciona para a tela de cadastro.
-Em cada item da lista, há um link (por exemplo, “Editar”) que leva para a tela de edição do usuário específico.
-Tela de Cadastro de Usuário:
-Ao clicar em “Cadastrar Novo Usuário”, o usuário é direcionado para src/app/users/create/page.tsx.
+O **Service User Generator Ui** é um sistema de gerenciamento de usuários desenvolvido com **Next.js 15**. Ele consome uma API backend desenvolvida em **NestJS** para realizar operações de **CRUD** (Criar, Ler, Atualizar e Excluir usuários). 
 
-O que acontece aqui:
-Um formulário (o componente UserForm) é exibido para preencher os dados do novo usuário.
-Após preencher e submeter o formulário, uma requisição via React Query é disparada para a API do backend para criar o usuário.
-Se a criação for bem-sucedida, o usuário é redirecionado de volta para a listagem de usuários, onde o novo cadastro aparece (graças à invalidação do cache do React Query).
-Tela de Edição de Usuário:
-Se o usuário clicar em “Editar” em algum item da lista, ele é direcionado para src/app/users/[id]/page.tsx (a rota dinâmica para edição).
+A aplicação utiliza **React Query** para otimizar chamadas à API, **Zod e React Hook Form** para validação de formulários, além do **ShadCN** para componentes estilizados e **React Toastify** para feedbacks visuais.
 
-O que acontece aqui:
-O formulário de edição é pré-preenchido com os dados atuais do usuário (buscados via React Query).
-O usuário faz as alterações necessárias e submete o formulário.
-Após a atualização, o sistema invalida o cache e redireciona novamente para a listagem, onde as alterações são refletidas.
-Resumo do fluxo:
+**Principais Funcionalidades**
+-  Listagem de usuários com cache otimizado usando React Query.
+-  Validação de formulários com Zod e React Hook Form.
+-  Exclusão de usuários com modal de confirmação.
+-  Feedbacks visuais com React Toastify.
+-  Design responsivo com Tailwind CSS e ShadCN.
 
-Home → (opção de navegação) → Listagem de Usuários
-Na Listagem:
-Botão/link "Cadastrar Novo Usuário" → leva à Tela de Cadastro
-Link "Editar" em cada usuário → leva à Tela de Edição
-Após cadastro/edição, o usuário retorna à Listagem de Usuários com os dados atualizados.
-Esse fluxo, combinado com a integração do React Query, garante que os dados sejam atualizados automaticamente no cache, proporcionando uma experiência fluida sem recarregamentos desnecessários da página.
+---
+
+##  Tecnologias Utilizadas
+
+- **Next.js 15** - Framework para renderização SSR e otimização do React.
+- **TypeScript** - Tipagem estática para melhor manutenção do código.
+- **React Query** - Gerenciamento de estado assíncrono e cache de API.
+- **Zod + React Hook Form** - Validação eficiente de formulários.
+- **ShadCN** - Biblioteca de componentes estilizados baseada em Tailwind CSS.
+- **Tailwind CSS** - Framework de estilização para interfaces modernas.
+- **React Toastify** - Feedbacks visuais para ações do usuário.
+- **ESLint e Prettier** - Padronização e formatação do código.
+
+---
+
+##  Configuração do Projeto
+
+### 🔹 **Pré-requisitos**
+- **Node.js** (versão recomendada: `18.20.5` ou superior)
+- **npm** (`npm install -g npm` para atualizar)
+- **Backend (NestJS) rodando** na porta correta
+
+### 🔹 **Clonar o Repositório**
+
+```sh
+git clone https://github.com/MoisesPCastro/user-generator-user-service-ui.git
+```
+###  Instalar as Dependências
+```sh
+npm install
+```
+
+### Configuração de Variáveis de Ambiente
+
+1. Na raiz do projeto, crie um arquivo chamado `.env`.
+2. Use o `.env.example` como referência.
+3. O projeto já vem com um arquivo `.env.example` que contém todas as chaves necessárias.
+4. Copie o conteúdo do `.env.example` para o `.env`.
+5. Substitua os valores padrão pelas informações reais do seu ambiente (como chaves de API, credenciais de banco de dados, etc.).
+
+### Rodando o Projeto
+
+- **Modo Produção**
+
+```sh
+npm run build
+
+npm start
+```
+
+- **Modo Desenvolvimento**
+
+```sh
+npm run dev
+```
+
+O servidor será iniciado e rodará na porta **3000** por padrão.
+
+#### Melhorias Futuras
+
+ Implementação de autenticação JWT com tela de login.
+ Melhoria na experiência do usuário com animações suaves.
+ Implementação de paginação na listagem de usuários.

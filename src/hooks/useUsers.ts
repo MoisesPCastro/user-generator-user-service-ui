@@ -1,7 +1,7 @@
 // src/hooks/useUsers.ts
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 import { api } from '../services/api';
-
 export interface User {
     id: number;
     name: string;
@@ -14,7 +14,7 @@ export function searchAllUsers() {
     return useQuery<User[]>({
         queryKey: ['users'],
         queryFn: async () => {
-            const response = await api.get('/users');
+            const response = await api.get('/users?status=1');
             return response.data;
         },
     });
@@ -53,10 +53,15 @@ export function useDeleteUser() {
 
     return useMutation({
         mutationFn: async (id: number) => {
-            await api.delete(`/users/${id}`);
+            return api.delete(`/users/${id}`);
         },
         onSuccess: () => {
+            toast.success('Usuário removido com sucesso!');
             queryClient.invalidateQueries({ queryKey: ['users'] });
+        },
+        onError: () => {
+            toast.error('Erro ao excluir usuário. Tente novamente.');
         },
     });
 }
+
