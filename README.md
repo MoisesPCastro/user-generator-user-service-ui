@@ -1,4 +1,4 @@
-#  Service User RH - Frontend
+#  Service User Generator- Frontend
 
 ##  Sobre o Projeto
 
